@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+            var codigo=3;
+            var mousePosX;
+            var mousePosY;
+            
+            var objeto;
+            function posicao(){
+                mousePosX = event.clientX;
+                mousePosY = event.clientY;
+                //alert(mousePosX);
+                document.getElementById('posX').value= parseInt(mousePosX);
+                document.getElementById('posY').value=parseInt(mousePosY);
+            }
+            function moverdown(codigo) {
+                //varWindow = window.open ('curso.html', 'popup');
+                //document.write(mousePosX);
+                //var X =mousePosX-15;
+                //var Y =mousePosY-15;
+                objeto =codigo;
+                //document.getElementById(codigo).style.marginLeft=X +"px";
+                //document.getElementById(codigo).style.marginTop=Y +"px";
+            }
+            function moverup(){
+                var X =mousePosX-15;
+                var Y =mousePosY-15;
+                document.getElementById(3).style.marginLeft=X +"px";
+                document.getElementById(3).style.marginTop=Y +"px";
+            }
+            function fixa(){
+                mousePosX = event.clientX;
+                mousePosY = event.clientY;
+                //alert(mousePosX);
+                document.getElementById('fixX').value= parseInt(mousePosX);
+                document.getElementById('fixY').value=parseInt(mousePosY);
+                
+                var X =mousePosX-15;
+                var Y =mousePosY-15;
+                document.getElementById('campo').innerHTML += "<div id='"+codigo+"' style='height: 30px;width: 30px;position:absolute;background-color:green;"+
+                        "margin-left:"+X+"px; margin-top:"+Y+ "px' " +
+                        "onmouseover='criarmover("+codigo+")' onmouseout='movercriar()' onmousedown='moverdown("+codigo+
+                        ")' onmouseup='moverup()'>"+codigo+ "</div>";
+                codigo++;
+                //document.write("teste");
+            }
+            
+            function criarmover(codigo){
+                document.getElementById(codigo).style.cursor = "move";
+                document.getElementById("campo").setAttribute("onmousedown","''");
+                //document.getElementById("campo").style="background-color: black;width: 600px;height: 600px;";
+            }
+            
+            function movercriar(){
+                document.getElementById("campo").setAttribute("onmousedown","fixa()");
+                //document.getElementById("campo").style="background-color: red;width: 600px;height: 600px;";
+            }
+            
+        </script>
+    </head>
+    <body>
+        <div id="campo" style="background-color: red; height: 500px; width: 600px" onmousemove="posicao()" onmousedown="fixa()">
+            <div id="1" style="height: 30px;width: 30px;position:absolute;background-color:green; margin-left:351px; margin-top:261px" onmouseover="criarmover(1)" onmouseout="movercriar()">1</div>
+            <div id="2" style="height: 30px;width: 30px;position:absolute;background-color:green; margin-left:60px; margin-top:151px" draggable="true" >2 </div>
+        </div>
+        <div>
+            Posição X:
+            <input type="text" id="posX" />
+        </div>
+        
+        <div>
+            Posição Y:
+            <input type="text" id="posY" />
+        </div>
+        
+        <form action="?" method="GET">
+        <div>
+            Posição X:
+            <input type="text" id="fixX" />
+        </div>
+        
+        <div style="width: 300px; height: 200px; background-color: red">
+            Posição Y:
+            <input type="text" id="fixY" style="cursor: move;z-index: 10;"/>
+            
+        </div>
+        </form>
+    </body>
+</html>

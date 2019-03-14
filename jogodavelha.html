@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jogo da Velha</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Albert Lima de Melo">
+        <meta name="key words" content=" jogo, velha, javascript, html, simples">
+        <!-- Funcoes em JS -->
+        <script type="text/javascript">
+
+            var jogador = new Array("O", "X");
+            var cor = new Array("blue", "orange");
+            var vez = 0;
+            var vencedor = 0;
+            var jogadas = 0;
+
+            var lista = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8");
+
+
+            function iniciarJogo() {
+                location.reload();
+            }
+
+            function cliqueCasa(elemento) {
+                //Verifica Jogada
+
+                if (validaJogada(elemento)) {
+
+                    if (temVencedor() && (jogadas >= 5)) {
+                        removeOnclik();
+                        document.getElementById('mensagem').style ='color: green; font-size:30px';
+                        document.getElementById('mensagem').innerHTML = "Vencedor: " + jogador[vencedor];
+                        document.getElementById('reiniciar').innerHTML = "<button onclick='iniciarJogo()'>Jogar " +
+                                "Novamente</button>";
+
+                    } else if (jogadas >= 9) {
+                        removeOnclik();
+                        document.getElementById('mensagem').style ='color: red;font-size:30px';
+                        document.getElementById("mensagem").innerHTML = "## Velhou ##";
+                        document.getElementById('reiniciar').innerHTML = "<p align='center'>" +
+                                "<button onclick='iniciarJogo()'>Jogar " +
+                                "Novamente</button>";
+                    }
+
+                }
+
+
+            }
+
+            function validaJogada(elemento) {
+
+
+                if (document.getElementById(elemento).innerHTML === "") {
+
+                    document.getElementById(elemento).innerHTML = jogador[vez];
+                    lista[Number(elemento.slice(-1))] = jogador[vez];
+
+                    if (vez === 0) {
+                        vencedor = 0;
+                        vez = 1;
+
+                    } else {
+                        vencedor = 1;
+                        vez = 0;
+                    }
+                    jogadas++;
+                    mudaJogador();
+                    return true;
+
+                } else {
+                    alert("Jogada Inválida!");
+                    return false;
+
+                }
+            }
+
+
+            function temVencedor() {
+
+                //diagonal
+                if (valoresIguais(lista[0], lista[4], lista[8]) ||
+                        valoresIguais(lista[2], lista[4], lista[6])) {
+                    return true;
+                    //verifica linhas
+                } else if (valoresIguais(lista[0], lista[1], lista[2]) ||
+                        valoresIguais(lista[3], lista[4], lista[5]) ||
+                        valoresIguais(lista[6], lista[7], lista[8])) {
+                    return true;
+                    //verifica colunas
+                } else if (valoresIguais(lista[0], lista[3], lista[6]) ||
+                        valoresIguais(lista[1], lista[4], lista[7]) ||
+                        valoresIguais(lista[2], lista[5], lista[8])) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            function valoresIguais(a, b, c) {
+                if (a === b && b === c) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            function removeOnclik() {
+                for (var i = 0; i < 9; i++) {
+                    elemento = document.getElementById('cel' + i);
+                    elemento.onclick = function () {};
+                    elemento.style = 'color: gray';
+                }
+            }
+
+            function mudaJogador() {
+
+                document.getElementById('mensagem').innerHTML = 'Vez: Jogador ' + jogador[vez];
+            }
+
+
+        </script>
+        <style>
+
+            #tabuleiro{
+
+                border: none;
+                background: #ebebe0;
+                border-spacing: 5px;
+                border-collapse: separate;
+            }
+
+            .linha{
+                background: #c2c2a3;
+                text-align: center;  
+            }
+
+            .coluna{
+                text-align: center;
+                font-size: 80px;
+                width: 100px;
+                height: 100px;
+            }
+
+            .titulo{
+                text-align: center;
+                font-size: 50px;
+                color: blue;
+            }
+
+            .mensagem{
+                text-align: center;
+                font-size: 25px;
+                color: blue;
+            }
+
+            .msgvencedor{
+                text-align: center;
+                font-size: 40px;
+                color: green;
+            }
+
+            .aviso{
+                text-align: center;
+                font-size: 20px;
+                color: blue;
+            }
+
+
+
+
+        </style>
+
+    </head>
+
+
+    <!-- Conteudo da Pagina -->
+
+    <body>
+        <div id="titulo">
+            <p class="titulo" >Jogo da Velha</p>
+        </div>
+
+        <div align="center">	
+            <table id="tabuleiro">
+                <tr class="linha" >
+                    <td >
+                        <div class="coluna" id="cel0"  onclick="cliqueCasa('cel0')"></div>
+                    </td>
+                    <td>
+                        <div class="coluna" id="cel1" onclick="cliqueCasa('cel1')"></div>
+                    </td>
+                    <td>
+                        <div class="coluna" id="cel2" onclick="cliqueCasa('cel2')"></div>
+                    </td>
+                </tr>
+                <tr class="linha">
+                    <td>
+                        <div class="coluna" id="cel3" onclick="cliqueCasa('cel3')"></div>
+                    </td>
+                    <td>
+                        <div class="coluna" id="cel4" onclick="cliqueCasa('cel4')"></div>
+                    </td>
+                    <td>
+                        <div class="coluna" id="cel5" onclick="cliqueCasa('cel5')"></div>
+                    </td>
+                </tr>
+                <tr class="linha">
+                    <td>
+                        <div class="coluna" id="cel6" onclick="cliqueCasa('cel6')"></div>
+                    </td>
+                    <td>
+                        <div class="coluna" id="cel7" onclick="cliqueCasa('cel7')"></div>
+                    </td>
+                    <td>
+                        <div class="coluna" id="cel8" onclick="cliqueCasa('cel8')"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="aviso" id="mensagem" > Vez Jogador: O</div>
+        <div class = "mensagem" id="reiniciar" >
+            <button style="" onclick='iniciarJogo()'>Reiniciar Jogo</button>
+        </div>		
+
+    </body>
+</html>
