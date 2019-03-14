@@ -23,20 +23,20 @@
 
 <p>Click and hold the mouse button down while moving the DIV element</p>
 
-<div class="tit" id="mydiv1" onmousemove="posicao()" onclick="selecionar(1)">
-  <div class="det" id="mydiv1header">Click here to move</div>
-  <p>Move</p>
-  <p>this</p>
-  <p>DIV</p>
-</div>
+<div id="campo" style="background-color: red; height: 500px; width: 600px">
 
-<div class="tit" id="mydiv2" onmousemove="posicao()" onclick="selecionar(2)">
-  <div class="det" id="mydiv2header">Click here to move</div>
-  <p>Move</p>
-  <p>this</p>
-  <p>DIV</p>
-</div>
+    <div class="tit" id="mydiv1" onmousemove="" onclick="selecionar(1)">
+      <div class="det" id="mydiv1header">JOANA DANTAS</div>
+      <p>6 pessoas</p>
+    </div>
 
+    <div class="tit" id="mydiv2" onmousemove="" onclick="selecionar(2)">
+      <div class="det" id="mydiv2header">PEDRO FERREIRA</div>
+      <p>10 pessoas</p>
+
+    </div>
+
+</div>
 
         <div>
             Posição X:
@@ -52,12 +52,6 @@
         <div>
             Codigo:
             <input type="text" id="fixX" />
-        </div>
-        
-        <div>
-            Posição Y:
-            <input type="text" id="fixY"/>
-            
         </div>
         </form>
 
@@ -110,6 +104,7 @@ function dragElement(elmnt) {
     /* stop moving when mouse button is released:*/
     document.onmouseup = null;
     document.onmousemove = null;
+    posicao()
   }
 }
 
